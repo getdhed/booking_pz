@@ -1,0 +1,26 @@
+<%- include('partials/header') %>
+<a class="back-link" href="/<%= webQuery %>">К списку комнат</a>
+<article class="detail-panel">
+  <h1><%= room.name %></h1>
+  <dl class="facts">
+    <div><dt>Номер комнаты</dt><dd><%= room.roomNumber %></dd></div>
+    <div><dt>Расположение</dt><dd><%= room.location %></dd></div>
+    <div><dt>Этаж</dt><dd><%= room.floor %></dd></div>
+    <div><dt>Вместимость</dt><dd><%= room.capacity %> человек</dd></div>
+  </dl>
+  <% if (room.description) { %>
+    <section class="detail-description"><h2>Описание</h2><p><%= room.description %></p></section>
+  <% } %>
+  <% if (currentUser && currentUser.role === 'admin') { %>
+  <form
+  action="/item/<%= room.id %>/delete<%= webQuery %>"
+  method="POST"
+  onsubmit="return confirm('Удалить эту комнату?');"
+>
+    <button type="submit" class="button button-danger">
+      Удалить комнату
+    </button>
+  </form>
+<% } %>
+</article>
+<%- include('partials/footer') %>

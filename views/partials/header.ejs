@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title><%= title %> — Бронирование ресурсов</title>
+  <link rel="stylesheet" href="/public/style.css">
+</head>
+
+<body>
+
+<header class="site-header">
+  <div class="container header-inner">
+
+    <% const canNavigate = currentUser && (typeof showNavigation === 'undefined' || showNavigation); %>
+
+    <div class="header-left">
+      <% if (canNavigate) { %>
+
+        <a class="site-title" href="/<%= webQuery %>">
+          Бронирование ресурсов
+        </a>
+
+        <nav>
+          <a href="/<%= webQuery %>">Комнаты</a>
+
+          <% if (currentUser.role === 'admin') { %>
+            <a href="/add<%= webQuery %>">Добавить комнату</a>
+          <% } %>
+
+          <a href="/login">Выход</a>
+        </nav>
+
+      <% } else { %>
+
+        <span class="site-title">Бронирование ресурсов</span>
+
+      <% } %>
+    </div>
+
+    <% if (canNavigate) { %>
+      <span class="account-label"><%= currentUser.name %></span>
+    <% } %>
+
+  </div>
+</header>
+
+<main class="container main-content">

@@ -1,0 +1,113 @@
+<%- include('partials/header') %>
+<a class="back-link" href="/<%= webQuery %>">К списку комнат</a>
+<div class="page-heading"><h1>Добавить комнату</h1></div>
+<form class="form-panel" action="/add<%= webQuery %>" method="post">
+  <div class="field">
+    <label for="name">Название <%= validation.name.required ? '*' : '' %></label>
+    <textarea
+      id="name"
+      name="name"
+      rows="1"
+      minlength="<%= validation.name.minLength %>"
+      maxlength="<%= validation.name.maxLength %>"
+      <%= validation.name.required ? 'required' : '' %>
+      data-autosize
+      aria-describedby="name-hint name-count"
+    ></textarea>
+    <div class="field-hint">
+      <small id="name-hint">От <%= validation.name.minLength %> до <%= validation.name.maxLength %> символов</small>
+      <span class="field-counter" id="name-count" hidden></span>
+    </div>
+  </div>
+
+  <div class="form-grid">
+    <div class="field">
+      <label for="roomNumber">Номер комнаты <%= validation.roomNumber.required ? '*' : '' %></label>
+      <textarea
+        id="roomNumber"
+        name="roomNumber"
+        rows="1"
+        minlength="<%= validation.roomNumber.minLength %>"
+        maxlength="<%= validation.roomNumber.maxLength %>"
+        <%= validation.roomNumber.required ? 'required' : '' %>
+        data-autosize
+        aria-describedby="roomNumber-hint roomNumber-count"
+      ></textarea>
+      <div class="field-hint">
+        <small id="roomNumber-hint">От <%= validation.roomNumber.minLength %> до <%= validation.roomNumber.maxLength %> символов</small>
+        <span class="field-counter" id="roomNumber-count" hidden></span>
+      </div>
+    </div>
+
+    <div class="field">
+      <label for="location">Расположение <%= validation.location.required ? '*' : '' %></label>
+      <textarea
+        id="location"
+        name="location"
+        rows="1"
+        minlength="<%= validation.location.minLength %>"
+        maxlength="<%= validation.location.maxLength %>"
+        <%= validation.location.required ? 'required' : '' %>
+        data-autosize
+        aria-describedby="location-hint location-count"
+      ></textarea>
+      <div class="field-hint">
+        <small id="location-hint">От <%= validation.location.minLength %> до <%= validation.location.maxLength %> символов</small>
+        <span class="field-counter" id="location-count" hidden></span>
+      </div>
+    </div>
+
+    <div class="field">
+      <label for="floor">Этаж <%= validation.floor.required ? '*' : '' %></label>
+      <input
+        id="floor"
+        name="floor"
+        type="number"
+        min="<%= validation.floor.min %>"
+        max="<%= validation.floor.max %>"
+        step="1"
+        <%= validation.floor.required ? 'required' : '' %>
+      >
+      <small>От <%= validation.floor.min %> до <%= validation.floor.max %></small>
+    </div>
+
+    <div class="field">
+      <label for="capacity">Вместимость <%= validation.capacity.required ? '*' : '' %></label>
+      <input
+        id="capacity"
+        name="capacity"
+        type="number"
+        min="<%= validation.capacity.min %>"
+        max="<%= validation.capacity.max %>"
+        step="1"
+        <%= validation.capacity.required ? 'required' : '' %>
+      >
+      <small>От <%= validation.capacity.min %> до <%= validation.capacity.max %> человек</small>
+    </div>
+  </div>
+
+  <div class="field">
+    <label for="description">Описание <%= validation.description.required ? '*' : '' %></label>
+    <textarea
+      id="description"
+      name="description"
+      rows="5"
+      minlength="<%= validation.description.minLength %>"
+      maxlength="<%= validation.description.maxLength %>"
+      <%= validation.description.required ? 'required' : '' %>
+      data-autosize
+      aria-describedby="description-hint description-count"
+    ></textarea>
+    <div class="field-hint">
+      <small id="description-hint"><%= validation.description.required ? '' : 'Необязательно. ' %>До <%= validation.description.maxLength %> символов</small>
+      <span class="field-counter" id="description-count" hidden></span>
+    </div>
+  </div>
+
+  <div class="form-actions">
+    <button class="button" type="submit">Добавить</button>
+    <a class="button button-secondary" href="/<%= webQuery %>">Отмена</a>
+  </div>
+</form>
+<script src="/public/form.js" defer></script>
+<%- include('partials/footer') %>

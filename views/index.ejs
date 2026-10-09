@@ -1,0 +1,26 @@
+<%- include('partials/header') %>
+<div class="page-heading">
+  <h1>Переговорные комнаты</h1>
+  <% if (currentUser && currentUser.role === 'admin') { %><a class="button" href="/add<%= webQuery %>">Добавить комнату</a><% } %>
+</div>
+<div class="table-wrap">
+  <table class="resource-table">
+    <colgroup><col class="column-number"><col class="column-name"><col class="column-location"><col class="column-floor"><col class="column-capacity"><col class="column-action"></colgroup>
+    <thead>
+      <tr><th scope="col">Номер</th><th scope="col">Название</th><th scope="col">Расположение</th><th scope="col">Этаж</th><th scope="col">Вместимость</th><th scope="col">Действие</th></tr>
+    </thead>
+    <tbody>
+      <% rooms.forEach(room => { %>
+        <tr class="resource-row">
+          <td><%= room.roomNumber %></td>
+          <td><a href="/item/<%= room.id %><%= webQuery %>"><%= room.name %></a></td>
+          <td><%= room.location %></td>
+          <td><%= room.floor %></td>
+          <td><%= room.capacity %> человек</td>
+          <td><a href="/item/<%= room.id %><%= webQuery %>">Открыть</a></td>
+        </tr>
+      <% }); %>
+    </tbody>
+  </table>
+</div>
+<%- include('partials/footer') %>
