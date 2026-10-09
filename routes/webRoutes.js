@@ -5,7 +5,6 @@ const Room = require('../models/Room');
 const validateWebRoom = require('../validation/webRoom');
 const webAuth = require('../middlewares/webAuth');
 const validationSettings = require('../config/validationSettings');
-const requireWebAdmin = require('../middlewares/requireWebAdmin');
 
 function createWebRoutes() {
   const router = express.Router();
@@ -87,11 +86,16 @@ function createWebRoutes() {
     next(new Error('Учебная проверка страницы 500'));
   });
 
-  router.post('/item/:id/delete', requireWebAdmin, async (req, res, next) => {
+ router.post(
+  '/item/:id/delete',
+  webAuth.requireUser,
+  webAuth.requireAdmin,
+  async (req, res, next) => {
     try {
-      const id = Number(req.params.id);
+      const rawId = req.params.id;
+      const id = Number(rawId);
 
-      if (!Number.isInteger(id) || id <= 0) {
+      if (!/^[1-9]\d*$/.test(rawId) || !Number.isSafeInteger(id)) {
         return res.status(404).render('404', {
           title: 'Комната не найдена'
         });
@@ -108,10 +112,7 @@ function createWebRoutes() {
       await room.destroy();
 
       return res.redirect('/?auth=1&role=admin');
-    } catch (error) {
-      next(error);
-    }
-  });
+    } catch (err) {return next(err)}});
   return router;
 }
 
